@@ -1,4 +1,4 @@
-package com.example.application.activities
+package com.example.application.view.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -8,13 +8,13 @@ import android.view.View
 import android.widget.EditText
 import com.example.application.R
 
-class Activity2 : AppCompatActivity() {
+class CActivityDetails : AppCompatActivity() {
     private lateinit var et1     : EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_2)
+        setContentView(R.layout.activity_details)
 
         et1        = findViewById(R.id.et1)
 
