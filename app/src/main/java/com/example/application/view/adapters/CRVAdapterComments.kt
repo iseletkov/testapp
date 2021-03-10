@@ -10,11 +10,11 @@ import com.example.application.model.CComment
 
 import org.threeten.bp.format.DateTimeFormatter
 
-class CRVAdapterComments (
-    private val items                       : List<CComment>,
-    private val onClick                     : (CComment) -> Unit
+class CRVAdapterComments(
+    private val onClick: (CComment) -> Unit
 )                                           : RecyclerView.Adapter<CRVAdapterComments.ViewHolder>()
 {
+    private var items: List<CComment>       = listOf()
     private val formatter                   = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
 
     /**
@@ -23,7 +23,7 @@ class CRVAdapterComments (
      */
     class ViewHolder(
         view: View,
-        onClick : (CComment) -> Unit
+        onClick: (CComment) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         val tv_author: TextView = view.findViewById(R.id.textView_author)
         val tv_text: TextView = view.findViewById(R.id.textView_text)
@@ -39,7 +39,7 @@ class CRVAdapterComments (
         }
         fun bind(
             comment: CComment,
-            formatter : DateTimeFormatter
+            formatter: DateTimeFormatter
         ) {
             this.comment = comment
 
@@ -70,5 +70,10 @@ class CRVAdapterComments (
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = items.size
+
+    fun setWords(items: List<CComment>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 
 }
