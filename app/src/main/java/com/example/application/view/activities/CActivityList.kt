@@ -1,34 +1,57 @@
 package com.example.application.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.application.R
-import com.example.application.model.CItem
-import com.example.application.view.adapters.CRVAdapterItems
+import com.example.application.model.CComment
+import com.example.application.view.adapters.CRVAdapterComments
+import com.example.application.viewmodel.CViewModelActivityList
 import kotlinx.android.synthetic.main.activity_list.*
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
+
 
 class CActivityList : AppCompatActivity() {
-
-    private lateinit var linearLayoutManager: LinearLayoutManager
-
-    private val items                       = ArrayList<CItem>()
-
+    private lateinit var mViewModel: CViewModelActivityList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        linearLayoutManager                 = LinearLayoutManager(this)
-        rvItemList.layoutManager            = linearLayoutManager
+        mViewModel = ViewModelProviders.of(this).get(CViewModelActivityList::class.java)
 
-        items.add(CItem("name1", "description1", 15))
-        items.add(CItem("name2", "description2", 25))
-        items.add(CItem("name3", "description3", 100))
 
-        val adapter                         = CRVAdapterItems(items)
-        rvItemList.adapter                  = adapter
+
+        recyclerView_comments.layoutManager = LinearLayoutManager(this)
+        val adapter = CRVAdapterComments() { comment -> onCommentClick(
+            comment
+        ) }
+        recyclerView_comments.adapter = adapter
+
+        mViewModel.comments.observe(this,
+            { item -> // Update the cached copy of the words in the adapter.
+                adapter.setWords(item)
+            })
     }
+    fun onFabPlusClick(view: View) {
+        mViewModel.insert( CComment(
+            null,
+            "123113123", "adadadawdawdawd", "Это дата"
+        ))
+    }
+
+    private fun onCommentClick(comment: CComment) {
+        val x = 1
+        /*val intent = Intent(this, CActivityDetails::class.java).apply {
+            putExtra("Параметр", text.toString())
+        }
+        startForResult.launch(intent)*/
+    }
+
 
     /*val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     { result: ActivityResult ->
@@ -39,9 +62,9 @@ class CActivityList : AppCompatActivity() {
         outputId.text = message
         }
 
-    }
+    }*/
 
-    fun onButtonInputPress(view: View)
+    /*fun onButtonInputPress(view: View)
     {
         val inputId = findViewById<EditText>(R.id.editTextInput)
         val text = inputId.text
@@ -52,6 +75,19 @@ class CActivityList : AppCompatActivity() {
         startForResult.launch(intent)
         //startActivityForResult()
     }*/
+
+//    fun onActivityResult(
+//        requestCode : Int,
+//        resultCode : Int,
+//        data : Intent
+//    ) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        val outputId = findViewById<TextView>(R.id.textViewOutput)
+//        val message = data.getStringExtra("Параметр2")
+//        outputId.text = message
+//    }
+
+
 
 
 }

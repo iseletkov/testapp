@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CApplication</string>
     <string name="buttonInput">Push me</string>
-    <string name="ItemList">Item list</string>
+    <string name="add_comment">Add comment</string>
 </resources>
