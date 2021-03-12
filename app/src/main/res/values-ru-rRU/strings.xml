@@ -3,4 +3,5 @@
     <string name="app_name">Моё приложение</string>
     <string name="buttonInput">Нажми меня</string>
     <string name="add_comment">Добавить комментарий</string>
+    <string name="map">карта</string>
 </resources>
